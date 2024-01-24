@@ -43,9 +43,9 @@ jobs:
       - name: Show target file list
         run: ls ${{ env.TARGET_DIRECTORY }}
 
-      #==========< 同期元のファイルを、同期先のディレクトリにコピー（上書き） >==========
-      - name: Copy sync file
-        run: cp ${{ env.SOURCE_DIRECTORY }}/${{ env.TARGET_FILE }} ${{ env.TARGET_DIRECTORY }}/${{ env.TARGET_FILE }}
+    #   #==========< 同期元のファイルを、同期先のディレクトリにコピー（上書き） >==========
+    #   - name: Copy sync file
+    #     run: cp ${{ env.SOURCE_DIRECTORY }}/${{ env.TARGET_FILE }} ${{ env.TARGET_DIRECTORY }}/${{ env.TARGET_FILE }}
 
 
 
