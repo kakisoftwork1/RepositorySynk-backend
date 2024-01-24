@@ -1,9 +1,10 @@
 name: Synchronize Target Repository
-on:
-  # develop ブランチ push時・マージ時に、アクションを起動する
-  push:
-    branches:
-      - develop
+# on:
+#   # develop ブランチ push時・マージ時に、アクションを起動する
+#   push:
+#     branches:
+#       - develop
+on: [push] # ジョブを実行するタイミング
 env:
   #-----------------------------------
   #               変数
