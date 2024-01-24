@@ -63,6 +63,7 @@ jobs:
                 echo "Changes found."
             fi
 
+      # 後続の処理
       - name: Commit and push changes
         run: |
           echo "Commit and push changes（以下略）"
