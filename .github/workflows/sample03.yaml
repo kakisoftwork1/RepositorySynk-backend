@@ -57,7 +57,7 @@ jobs:
             if diff -q ${{ env.SOURCE_DIRECTORY }}/${{ env.TARGET_FILE }} ${{ env.TARGET_DIRECTORY }}/${{ env.TARGET_FILE }}; then
                 # 差分が無かった場合
                 echo "No changes."
-                exit 0
+                exit 1
             else
                 # 差分があった場合
                 echo "Changes found."
