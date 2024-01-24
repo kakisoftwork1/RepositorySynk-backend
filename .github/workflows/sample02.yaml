@@ -1,0 +1,75 @@
+
+
+name: Synchronize Target Repository
+on:
+  # develop ブランチ push時・マージ時に、アクションを起動する
+  push:
+    branches:
+      - develop
+env:
+  #-----------------------------------
+  #               変数
+  #-----------------------------------
+  TARGET_REPOSITORY_ACCESS_ACCOUNT: kakisoftwork1                                     # 同期対象のリポジトリにアクセスする時のアカウント名
+  TARGET_REPOSITORY: RepositoryLinkSample02                                           # 同期対象のリポジトリ（末尾に ".git" は不要） ※clone先のディレクトリ名としても使用します
+  TARGET_BRANCH: develop                                                              # 同期対象のブランチ
+  SOURCE_DIRECTORY: core/APISpecifications                                            # コピー元のファイルを存在するディレクトリパス
+  TARGET_FILE: petstore.yaml                                                          # OpenAPI仕様書のファイル名（コピー対象のファイル名）
+  TARGET_DIRECTORY: RepositoryLinkSample02/APISpecifications                          # コピー先（同期先）のファイルを格納するディレクトリ
+  USER_NAME: Your Name                                                                # git push時のユーザ名
+  USER_EMAIL: your.email@example.com                                                  # git push時のメールアドレス
+  TARGET_REPOSITORY_ACCESS_TOKEN: ${{ secrets.SYNCHRONIZE_OPAN_API_SPECIFICATION }}   # 同期先リポジトリのアクセストークン（同期元にもシークレットキーとして登録する必要がある）
+jobs:
+  #===================================
+  #   異なるリポジトリとファイルを同期
+  #===================================
+  synchronize-target-repository:
+    runs-on: ubuntu-22.04
+    steps:
+      #==========< 自身のリポジトリをクローン >==========
+      - name: Checkout My Repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TARGET_BRANCH }}
+
+      #==========< 同期先のリポジトリをクローン >==========
+      - name: Checkout Target Repository
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.TARGET_REPOSITORY_ACCESS_ACCOUNT }}/${{ env.TARGET_REPOSITORY }}
+          ref: ${{ env.TARGET_BRANCH }}
+          path: ${{ env.TARGET_REPOSITORY }}
+          token: ${{ env.TARGET_REPOSITORY_ACCESS_TOKEN }}
+
+      #==========< 同期先ディレクトリのファイル一覧を表示 >==========
+      - name: Show target file list
+        run: ls ${{ env.TARGET_DIRECTORY }}
+
+      #==========< 同期元のファイルを、同期先のディレクトリにコピー（上書き） >==========
+      - name: Copy sync file
+        run: cp ${{ env.SOURCE_DIRECTORY }}/${{ env.TARGET_FILE }} ${{ env.TARGET_DIRECTORY }}/${{ env.TARGET_FILE }}
+
+      #==========< 変更の有無をチェック >==========
+      - name: Check for changes
+        id: check_for_changes
+        run: |
+          cd ${{ env.TARGET_REPOSITORY }}
+          git add .
+          if [[ $(git diff --cached) ]]; then
+              echo "Changes found."
+              echo "is_editted=1" >> $GITHUB_OUTPUT
+          else
+              echo "No changes."
+              echo "is_editted=0" >> $GITHUB_OUTPUT
+          fi
+
+      #==========< 変更がある場合、同期先のリポジトリに pushする >==========
+      - name: Commit and push changes
+        if: steps.check_for_changes.outputs.is_editted == '1'
+        run: |
+          echo "Commit and push changes"
+          cd ${{ env.TARGET_REPOSITORY }}
+          git config --global user.name "${{ env.USER_NAME }}"
+          git config --global user.email "${{ env.USER_EMAIL }}"
+          git commit -m "Update OpenAPI pecification file"
+          git push

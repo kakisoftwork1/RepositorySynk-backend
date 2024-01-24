@@ -1,0 +1,10 @@
+name: GitHub Actions Demo # ジョブの名称
+on: [push] # ジョブを実行するタイミング
+
+jobs:
+  my-job-01: # 自身で定義したジョブ名
+    runs-on: ubuntu-22.04  # jobを実行する環境（OS）
+    steps: # jobの実行内容
+      - run: echo "execute my-job-01"
+
+
