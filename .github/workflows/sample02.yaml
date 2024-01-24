@@ -10,11 +10,11 @@ env:
   #               変数
   #-----------------------------------
   TARGET_REPOSITORY_ACCESS_ACCOUNT: kakisoftwork1                                     # 同期対象のリポジトリにアクセスする時のアカウント名
-  TARGET_REPOSITORY: RepositoryLinkSample02                                           # 同期対象のリポジトリ（末尾に ".git" は不要） ※clone先のディレクトリ名としても使用します
+  TARGET_REPOSITORY: RepositorySynk-frontend                                          # 同期対象のリポジトリ（末尾に ".git" は不要） ※clone先のディレクトリ名としても使用します
   TARGET_BRANCH: develop                                                              # 同期対象のブランチ
-  SOURCE_DIRECTORY: core/APISpecifications                                            # コピー元のファイルを存在するディレクトリパス
+  SOURCE_DIRECTORY: APISpecifications                                                 # コピー元のファイルを存在するディレクトリパス
   TARGET_FILE: petstore.yaml                                                          # OpenAPI仕様書のファイル名（コピー対象のファイル名）
-  TARGET_DIRECTORY: RepositoryLinkSample02/APISpecifications                          # コピー先（同期先）のファイルを格納するディレクトリ
+  TARGET_DIRECTORY: RepositorySynk-frontend/APISpecifications                         # コピー先（同期先）のファイルを格納するディレクトリ
   USER_NAME: Your Name                                                                # git push時のユーザ名
   USER_EMAIL: your.email@example.com                                                  # git push時のメールアドレス
   TARGET_REPOSITORY_ACCESS_TOKEN: ${{ secrets.SYNCHRONIZE_OPAN_API_SPECIFICATION3 }}   # 同期先リポジトリのアクセストークン（同期元にもシークレットキーとして登録する必要がある）
@@ -28,8 +28,8 @@ jobs:
       #==========< 自身のリポジトリをクローン >==========
       - name: Checkout My Repository
         uses: actions/checkout@v4
-        with:
-          ref: ${{ env.TARGET_BRANCH }}
+        # with:
+        #   ref: ${{ env.TARGET_BRANCH }}
 
       #==========< 同期先のリポジトリをクローン >==========
       - name: Checkout Target Repository
