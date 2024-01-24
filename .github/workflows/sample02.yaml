@@ -28,8 +28,8 @@ jobs:
       #==========< 自身のリポジトリをクローン >==========
       - name: Checkout My Repository
         uses: actions/checkout@v4
-        # with:
-        #   ref: ${{ env.TARGET_BRANCH }}
+        with:
+          ref: ${{ env.TARGET_BRANCH }}
 
       #==========< 同期先のリポジトリをクローン >==========
       - name: Checkout Target Repository
