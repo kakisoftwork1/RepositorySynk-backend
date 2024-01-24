@@ -58,11 +58,13 @@ jobs:
             if diff -q ${{ env.SOURCE_DIRECTORY }}/${{ env.TARGET_FILE }} ${{ env.TARGET_DIRECTORY }}/${{ env.TARGET_FILE }}; then
                 # 差分が無かった場合
                 echo "No changes."
-                echo "is_editted=0" >> $GITHUB_OUTPUT
+                # echo "is_editted=0" >> $GITHUB_OUTPUT
+                echo "{is_editted}={0}" >> $GITHUB_OUTPUT
             else
                 # 差分があった場合
                 echo "Changes found."
-                echo "is_editted=1" >> $GITHUB_OUTPUT
+                # echo "is_editted=1" >> $GITHUB_OUTPUT
+                echo "{is_editted}={1}" >> $GITHUB_OUTPUT
             fi
 
       # 後続の処理
