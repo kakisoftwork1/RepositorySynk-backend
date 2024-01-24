@@ -54,7 +54,7 @@ jobs:
 
       - name: Check for changes
         run: |
-            diff ${{ env.SOURCE_DIRECTORY }}/${{ env.TARGET_FILE }} ${{ env.SOURCE_DIRECTORY }}/${{ env.TARGET_FILE }} > /dev/null
+            diff ${{ env.SOURCE_DIRECTORY }}/${{ env.TARGET_FILE }} ${{ env.TARGET_DIRECTORY }}/${{ env.TARGET_FILE }} > /dev/null
             if [ $? -eq 0 ]; then
                 # 差分が無かった場合
                 echo "No changes."
