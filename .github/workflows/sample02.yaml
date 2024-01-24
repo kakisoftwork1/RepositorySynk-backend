@@ -1,10 +1,9 @@
 name: Synchronize Target Repository
-# on:
-#   # develop ブランチ push時・マージ時に、アクションを起動する
-#   push:
-#     branches:
-#       - develop
-on: [push] # ジョブを実行するタイミング
+on:
+  # develop ブランチ push時・マージ時に、アクションを起動する
+  push:
+    branches:
+      - develop
 env:
   #-----------------------------------
   #               変数
@@ -64,7 +63,7 @@ jobs:
 
       #==========< 変更がある場合、同期先のリポジトリに pushする >==========
       - name: Commit and push changes
-        if: steps.check_for_changes.outputs.is_editted == '1'
+        # if: steps.check_for_changes.outputs.is_editted == '1'
         run: |
           echo "Commit and push changes"
           cd ${{ env.TARGET_REPOSITORY }}
