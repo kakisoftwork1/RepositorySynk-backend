@@ -72,3 +72,4 @@ jobs:
           git config --global user.email "${{ env.USER_EMAIL }}"
           git commit -m "Update OpenAPI pecification file"
           git push
+
