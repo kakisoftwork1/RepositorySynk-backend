@@ -57,10 +57,15 @@ jobs:
             if diff -q ${{ env.SOURCE_DIRECTORY }}/${{ env.TARGET_FILE }} ${{ env.TARGET_DIRECTORY }}/${{ env.TARGET_FILE }}; then
                 # 差分が無かった場合
                 echo "No changes."
+                exit 0
             else
                 # 差分があった場合
                 echo "Changes found."
             fi
+
+      - name: Commit and push changes
+        run: |
+          echo "Commit and push changes（以下略）"
 
 
 
