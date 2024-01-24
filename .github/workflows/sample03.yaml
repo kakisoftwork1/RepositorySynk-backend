@@ -53,18 +53,21 @@ jobs:
       # 変更が無い場合、処理を終了する
 
       - name: Check for changes
+        id: check_for_changes
         run: |
             if diff -q ${{ env.SOURCE_DIRECTORY }}/${{ env.TARGET_FILE }} ${{ env.TARGET_DIRECTORY }}/${{ env.TARGET_FILE }}; then
                 # 差分が無かった場合
                 echo "No changes."
-                exit 1
+                echo "is_editted=0" >> $GITHUB_OUTPUT
             else
                 # 差分があった場合
                 echo "Changes found."
+                echo "is_editted=1" >> $GITHUB_OUTPUT
             fi
 
       # 後続の処理
       - name: Commit and push changes
+        if: steps.check_for_changes.outputs.is_editted == '1'
         run: |
           echo "Commit and push changes（以下略）"
 
