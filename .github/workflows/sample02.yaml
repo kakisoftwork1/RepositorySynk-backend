@@ -1,5 +1,3 @@
-
-
 name: Synchronize Target Repository
 on:
   # develop ブランチ push時・マージ時に、アクションを起動する
@@ -18,7 +16,7 @@ env:
   TARGET_DIRECTORY: RepositoryLinkSample02/APISpecifications                          # コピー先（同期先）のファイルを格納するディレクトリ
   USER_NAME: Your Name                                                                # git push時のユーザ名
   USER_EMAIL: your.email@example.com                                                  # git push時のメールアドレス
-  TARGET_REPOSITORY_ACCESS_TOKEN: ${{ secrets.SYNCHRONIZE_OPAN_API_SPECIFICATION }}   # 同期先リポジトリのアクセストークン（同期元にもシークレットキーとして登録する必要がある）
+  TARGET_REPOSITORY_ACCESS_TOKEN: ${{ secrets.SYNCHRONIZE_OPAN_API_SPECIFICATION3 }}   # 同期先リポジトリのアクセストークン（同期元にもシークレットキーとして登録する必要がある）
 jobs:
   #===================================
   #   異なるリポジトリとファイルを同期
