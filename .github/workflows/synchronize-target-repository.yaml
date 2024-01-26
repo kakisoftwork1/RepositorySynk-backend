@@ -36,8 +36,8 @@ jobs:
       #==========<  >==========
       - name: git config
         run: ls ${{ env.TARGET_DIRECTORY }}
-          git config --global user.name "${{ env.USER_NAME }}"
-          git config --global user.email "${{ env.USER_EMAIL }}"
+          git config user.name "${{ env.USER_NAME }}"
+          git config user.email "${{ env.USER_EMAIL }}"
 
 
 
