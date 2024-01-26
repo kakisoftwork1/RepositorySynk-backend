@@ -30,6 +30,17 @@ jobs:
         with:
           ref: ${{ env.TARGET_BRANCH }}
 
+
+
+
+      #==========<  >==========
+      - name: git config
+        run: ls ${{ env.TARGET_DIRECTORY }}
+          git config --global user.name "${{ env.USER_NAME }}"
+          git config --global user.email "${{ env.USER_EMAIL }}"
+
+
+
       #==========< 同期先のリポジトリをクローン >==========
       - name: Checkout Target Repository
         uses: actions/checkout@v4
@@ -67,7 +78,7 @@ jobs:
         run: |
           echo "Commit and push changes"
           cd ${{ env.TARGET_REPOSITORY }}
-          git config --global user.name "${{ env.USER_NAME }}"
-          git config --global user.email "${{ env.USER_EMAIL }}"
+          # git config --global user.name "${{ env.USER_NAME }}"
+          # git config --global user.email "${{ env.USER_EMAIL }}"
           git commit -m "Update OpenAPI pecification file"
           git push
